@@ -227,6 +227,7 @@ calling fucntion from here.
  *federal condition
  */
 function setFederal(tagname, property, expression) {
+    var objectList= [];
     var prizeTable = scrappedData.getElementByTagNameAndProperty(tagname, property, expression);
     var innerElement = prizeTable.querySelector('tbody');
     var html = innerElement.getElementsByTagName('tr');
@@ -247,8 +248,9 @@ function setFederal(tagname, property, expression) {
     prize['category'] = category;
     prize['winner'] = winners;
     prize['amount'] = amount;
-    console.log(prize);
-    return prize;
+    objectList.push(prize);
+    console.log(objectList);
+    return objectList;
 }
 /*
 calling setFederal.
@@ -263,15 +265,16 @@ var parseAmount = /R\$\s*(\d+.*)/g;
 
 function getPrizeValues (parseCategory,parseWinners,parseAmount){
     var response = getPrizeData(parseCategory, parseWinners, parseAmount, 'div', 'class', 'related-box');
+    //var response = setFederal('table', 'class', 'simple-table');
     response = response.filter(function(val){
         return val['category'].length > 1;
     });
     for (var i = 0 ; i<response.length;i++){
         console.log(response[i]);
         var winningResultCategory = response[i].winningResultCategory;
-        var prizeCategory = response[0].category;
-        var prizeWinners = response[0].winner;
-        var prizeAmount = response[0].amount;
+        var prizeCategory = response[i].category;
+        var prizeWinners = response[i].winner;
+        var prizeAmount = response[i].amount;
         console.log(winningResultCategory,prizeCategory,prizeWinners,prizeAmount);
         //return [winningResultCategory,prizeCategory,prizeWinners,prizeAmount];
       }
