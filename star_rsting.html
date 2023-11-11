@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .stars {
+      display: inline-block;
+    }
+    .star {
+      color: #ffd700;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .half {
+      position: relative;
+      display: inline-block;
+    }
+    .full-star {
+      position: absolute;
+      clip: rect(0, 20px, 40px, 0);
+    }
+    .half-star {
+      position: absolute;
+      clip: rect(0, 10px, 40px, 0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars" id="starRating"></div>
+
+<script>
+  // Assume backendValue is the value fetched from the backend (e.g., 2.5)
+  const backendValue = 2.5;
+
+  function displayStars(value) {
+    const starRatingContainer = document.getElementById('starRating');
+    starRatingContainer.innerHTML = '';
+
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement('span');
+      star.classList.add('star');
+
+      if (i <= value) {
+        star.innerHTML = '&#9733;'; // Full star
+      } else if (i - 0.5 === value) {
+        star.innerHTML = '&#9733;'; // Full star
+        const halfStar = document.createElement('span');
+        halfStar.classList.add('half');
+        halfStar.innerHTML = '&#9733;'; // Half star
+        star.appendChild(halfStar);
+      } else {
+        star.innerHTML = '&#9734;'; // Empty star
+      }
+
+      starRatingContainer.appendChild(star);
+    }
+  }
+
+  // Display stars based on the backend value
+  displayStars(backendValue);
+</script>
+
+</body>
+</html>
