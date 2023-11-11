@@ -45,9 +45,10 @@
       if (i <= value) {
         star.innerHTML = '&#9733;'; // Full star
       } else if (i - 0.5 === value) {
-        star.innerHTML = '&#9733;'; // Full star
+        //star.innerHTML = '&#9733;'; // Full star
         const halfStar = document.createElement('span');
         halfStar.classList.add('half');
+        halfStar.classList.add('half-star');
         halfStar.innerHTML = '&#9733;'; // Half star
         star.appendChild(halfStar);
       } else {
