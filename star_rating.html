@@ -35,29 +35,35 @@
   const backendValue = 2.5;
 
   function displayStars(value) {
-    const starRatingContainer = document.getElementById('starRating');
-    starRatingContainer.innerHTML = '';
+  const starRatingContainer = document.getElementById('starRating');
+  starRatingContainer.innerHTML = ''; // Clear existing star ratings
 
-    for (let i = 1; i <= 5; i++) {
-      const star = document.createElement('span');
-      star.classList.add('star');
+  const fullStars = Math.floor(value); // Calculate the number of full stars
+  const fractionalPart = value - fullStars; // Determine the fractional part
 
-      if (i <= value) {
-        star.innerHTML = '&#9733;'; // Full star
-      } else if (i - 0.5 === value) {
-        //star.innerHTML = '&#9733;'; // Full star
-        const halfStar = document.createElement('span');
-        halfStar.classList.add('half');
-        halfStar.classList.add('half-star');
-        halfStar.innerHTML = '&#9733;'; // Half star
-        star.appendChild(halfStar);
-      } else {
-        star.innerHTML = '&#9734;'; // Empty star
-      }
+  for (let i = 1; i <= 6; i++) {
+    const star = document.createElement('span');
+    star.classList.add('star'); // Add the 'star' CSS class
 
-      starRatingContainer.appendChild(star);
+    if (i <= fullStars) {
+      star.innerHTML = '&#9733;'; // Full star
+    } else if (i === fullStars + 1 && fractionalPart >= 0.5) {
+      const halfStarSpan = document.createElement('span');
+      halfStarSpan.classList.add('half-star'); // Add the 'half' CSS class
+      halfStarSpan.innerHTML = '&#9733;'; // Half star
+      star.appendChild(halfStarSpan); // Append the half star icon to the star
+    } else if (i === fullStars + 1 && fractionalPart < 0.5) {
+      star.innerHTML = '&#9734;'; // Empty star
+      const halfStarSpan = document.createElement('span');
+      halfStarSpan.classList.add('half'); // Add the 'half' CSS class
+      star.appendChild(halfStarSpan); // Append empty half star icon to the star
+    } else {
+      star.innerHTML = '&#9734;'; // Empty star
     }
+
+    starRatingContainer.appendChild(star); // Append the star element to the container
   }
+}
 
   // Display stars based on the backend value
   displayStars(backendValue);
